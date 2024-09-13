@@ -1,23 +1,29 @@
 import {useState, useEffect, useCallback} from 'react';
-import {getSpotifyToken} from './getSpotifyToken';
-import {IPlaylistsResponse, IPlaylistTracksResponse} from '../types/types';
+import {getToken} from './getToken';
+import {
+  IPlaylist,
+  IPlaylistsResponse,
+  IPlaylistTracksResponse,
+} from '../types/types';
 
-const cache = new Map<string, IPlaylistsResponse | IPlaylistTracksResponse>();
+const cache = new Map<
+  string,
+  IPlaylistsResponse | IPlaylistTracksResponse | IPlaylist
+>();
 
 const defaultOptions = {
   key: '',
   refetch: false,
 };
 
-interface IUseFetchSpotifyDataOptions {
+interface IUseFetchOptions {
   key?: string;
   refetch?: boolean;
 }
 
-// Custom hook to fetch Spotify data
-const useFetchSpotifyData = (
+const useFetchData = (
   endpoint: string,
-  options: IUseFetchSpotifyDataOptions = defaultOptions,
+  options: IUseFetchOptions = defaultOptions,
 ) => {
   const [data, setData] = useState<
     IPlaylistsResponse | IPlaylistTracksResponse | null
@@ -36,7 +42,7 @@ const useFetchSpotifyData = (
     setIsLoading(true);
     setError(null);
 
-    const token = await getSpotifyToken();
+    const token = await getToken();
 
     if (!token) {
       setError('Failed to retrieve Spotify token');
@@ -84,4 +90,4 @@ const useFetchSpotifyData = (
   return {data, error, isLoading};
 };
 
-export default useFetchSpotifyData;
+export default useFetchData;

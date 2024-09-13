@@ -1,27 +1,40 @@
 import React from 'react';
-import {Pressable, StyleSheet, Image, Text, View} from 'react-native';
+import {
+  Pressable,
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  ViewProps,
+  ImageProps,
+} from 'react-native';
 import {IPlaylist} from '../types/types';
 
 interface IPlaylistCard {
-  playlist: IPlaylist;
+  playlist: any;
   onPress: () => void;
+  style?: ViewProps;
+  imageStyle?: ImageProps;
 }
 
-const PlaylistCard: React.FC<IPlaylistCard> = ({playlist, onPress}) => {
+const PlaylistCard: React.FC<IPlaylistCard> = ({
+  playlist,
+  onPress,
+  style,
+  imageStyle,
+}) => {
   return (
-    <Pressable onPress={onPress} style={styles.cardContainer}>
+    <Pressable onPress={onPress} style={[styles.cardContainer, style]}>
       <View style={styles.card}>
         <Image
-          style={styles.cardImage}
-          width={160}
-          height={160}
+          style={[styles.cardImage, imageStyle]}
           source={{
-            uri: playlist.images[0].url,
+            uri: playlist?.images[0]?.url,
           }}
         />
         <View style={styles.cardInfo}>
-          <Text style={styles.name}>{playlist.name}</Text>
-          <Text style={styles.total}>{playlist.tracks.total} songs</Text>
+          <Text style={styles.name}>{playlist?.name}</Text>
+          <Text style={styles.total}>{playlist?.tracks.total} songs</Text>
         </View>
       </View>
     </Pressable>
@@ -29,7 +42,7 @@ const PlaylistCard: React.FC<IPlaylistCard> = ({playlist, onPress}) => {
 };
 
 const styles = StyleSheet.create({
-  cardContainer: {padding: 10},
+  cardContainer: {padding: 3},
   card: {},
   cardInfo: {
     display: 'flex',
@@ -38,6 +51,8 @@ const styles = StyleSheet.create({
   },
   cardImage: {
     borderRadius: 4,
+    width: 160,
+    height: 160,
   },
   name: {
     fontSize: 14,

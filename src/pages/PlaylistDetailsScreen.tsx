@@ -1,11 +1,11 @@
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import useFetchSpotifyData from '../hooks/useFetchStotifyData';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../App';
 import {IArtist, IPlaylistTrackItem} from '../types/types';
 import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
+import useFetchData from '../hooks/useFetchData';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -15,12 +15,13 @@ const PlaylistDetailsScreen = ({
   route: PlaylistDetailsScreenRouteProp;
 }) => {
   const {data: playlist} = route.params;
+  console.log('🚀 ~ playlist:', playlist);
 
   const {
     data: playlistTracks,
     error,
     isLoading,
-  } = useFetchSpotifyData(playlist.tracks.href);
+  } = useFetchData(playlist.tracks.href);
 
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [filteredTracks, setFilteredTracks] = useState<IPlaylistTrackItem[]>(

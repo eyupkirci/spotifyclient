@@ -2,14 +2,14 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import FeaturedPlaylists from '../components/FeaturedPlaylists';
 import SearchBar from '../components/SearchBar';
-import CategoryPlaylists from '../components/CategoryPlaylists';
+import ChosenPlaylists from '../components/ChosenPlaylists';
 
 const PlaylistScreen: React.FC = () => {
   return (
     <View style={styles.screen}>
       <SearchBar />
       <FeaturedPlaylists />
-      <CategoryPlaylists />
+      <ChosenPlaylists />
     </View>
   );
 };

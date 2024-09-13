@@ -1,5 +1,5 @@
 // Function to generate tokens using the basic_authorization
-export const getSpotifyToken = async (): Promise<string | null> => {
+export const getToken = async (): Promise<string | null> => {
   const authOptions = {
     method: 'POST',
     headers: {

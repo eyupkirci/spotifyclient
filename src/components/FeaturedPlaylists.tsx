@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import useFetchSpotifyData from '../hooks/useFetchStotifyData';
+import useFetchData from '../hooks/useFetchData';
 import {RootStackParamList} from '../App';
 import {IPlaylist} from '../types/types';
 import IsLoading from './IsLoading';
@@ -16,7 +16,7 @@ const FeaturedPlaylists: React.FC = () => {
     'https://api.spotify.com/v1/browse/featured-playlists',
   );
 
-  const {data, error, isLoading} = useFetchSpotifyData(endpoint, {
+  const {data, error, isLoading} = useFetchData(endpoint, {
     key: endpoint,
     refetch: false,
   });
@@ -52,18 +52,27 @@ const FeaturedPlaylists: React.FC = () => {
               data?.playlists?.previous ?? (data?.playlists?.href as string),
             )
           }>
-          <Text style={{opacity: data?.playlists?.previous === null ? 0.2 : 1}}>
+          <Text
+            style={[
+              styles.navItem,
+              {opacity: data?.playlists?.previous === null ? 0.2 : 1},
+            ]}>
             Previous
           </Text>
         </Pressable>
         <Pressable
-          style={{opacity: data?.playlists?.next === null ? 0.2 : 1}}
           onPress={() =>
             setEndpoint(
               data?.playlists?.next ?? (data?.playlists?.href as string),
             )
           }>
-          <Text>Next</Text>
+          <Text
+            style={[
+              styles.navItem,
+              {opacity: data?.playlists?.next === null ? 0.2 : 1},
+            ]}>
+            Next
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -90,6 +99,7 @@ const styles = StyleSheet.create({
   cardImage: {
     borderRadius: 4,
   },
+  navItem: {color: 'navy'},
 });
 
 export default FeaturedPlaylists;
