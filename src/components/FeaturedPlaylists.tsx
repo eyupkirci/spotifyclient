@@ -47,6 +47,11 @@ const FeaturedPlaylists: React.FC = () => {
       />
       <View style={styles.nav}>
         <Pressable
+          style={({pressed}) => [
+            {
+              opacity: pressed ? 0.2 : 1,
+            },
+          ]}
           onPress={() =>
             setEndpoint(
               data?.playlists?.previous ?? (data?.playlists?.href as string),
@@ -61,6 +66,11 @@ const FeaturedPlaylists: React.FC = () => {
           </Text>
         </Pressable>
         <Pressable
+          style={({pressed}) => [
+            {
+              opacity: pressed ? 0.2 : 1,
+            },
+          ]}
           onPress={() =>
             setEndpoint(
               data?.playlists?.next ?? (data?.playlists?.href as string),
@@ -80,7 +90,7 @@ const FeaturedPlaylists: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  component: {backgroundColor: 'lightblue'},
+  component: {},
   playlistTitle: {fontSize: 24, padding: 10, fontWeight: 'bold'},
   nav: {
     display: 'flex',

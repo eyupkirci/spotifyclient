@@ -49,7 +49,7 @@ const YourPlaylists = () => {
 };
 
 const styles = StyleSheet.create({
-  component: {backgroundColor: 'lightblue'},
+  component: {},
   images: {width: 120, height: 120},
   playlistContainer: {
     display: 'flex',

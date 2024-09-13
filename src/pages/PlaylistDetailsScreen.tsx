@@ -106,13 +106,19 @@ const PlaylistDetailsScreen = ({
         {playlist.name}
       </Text>
       <Text style={styles.playlistDescription}>{playlist.description}</Text>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search tracks..."
-        placeholderTextColor="lightgray"
-        value={searchQuery}
-        onChangeText={setSearchQuery}
-      />
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="Search tracks..."
+          placeholderTextColor="lightgray"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <Image
+          style={styles.inputIcon}
+          source={require('../assets/feather_search.png')}
+        />
+      </View>
       <View style={styles.sortControls}>
         <View style={styles.sortItemsGroup}>
           <Pressable
@@ -176,12 +182,20 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: Platform.OS === 'ios' ? 60 : 0,
-    paddingBottom: 16,
+    paddingBottom: 30,
     paddingHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
   backButton: {alignSelf: 'flex-start'},
+  inputIcon: {
+    position: 'absolute',
+    top: 14,
+    right: 10,
+    opacity: 0.5,
+    zIndex: -1,
+  },
+  inputContainer: {position: 'relative', width: '100%'},
   searchBar: {
     marginVertical: 5,
     height: 40,

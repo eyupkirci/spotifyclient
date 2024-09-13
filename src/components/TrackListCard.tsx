@@ -16,6 +16,11 @@ const TracklistCard: React.FC<{item: Partial<IPlaylistTrackItem>}> = ({
         <Text style={styles.trackName}>{trackName}</Text>
         <Text style={styles.artistNames}>{artistNames}</Text>
         <Pressable
+          style={({pressed}) => [
+            {
+              opacity: pressed ? 0.2 : 1,
+            },
+          ]}
           onPress={async () => await Linking.openURL(external_urls?.spotify)}>
           <Text style={styles.preview}>Preview</Text>
         </Pressable>
@@ -50,6 +55,6 @@ const styles = StyleSheet.create({
   },
   preview: {
     marginTop: 10,
-    color: 'lightblue',
+    color: 'navy',
   },
 });

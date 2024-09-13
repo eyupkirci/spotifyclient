@@ -54,7 +54,10 @@ const PlaylistCard: React.FC<IPlaylistCard> = ({
         <CardImage playlist={playlist} imageStyle={imageStyle as ImageProps} />
         <View style={styles.cardInfo}>
           <Text style={styles.name}>{playlist?.name}</Text>
-          <Text style={styles.total}>{playlist?.tracks.total} songs</Text>
+          <Text style={styles.total}>
+            {playlist?.tracks.total}
+            {playlist?.tracks.total === 1 ? ' song' : ' songs'}
+          </Text>
         </View>
       </View>
     </Pressable>

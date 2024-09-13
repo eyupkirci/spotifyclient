@@ -17,22 +17,15 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <SafeAreaView style={{flex: 1}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen
-            name="Home"
-            component={PlaylistScreen}
-            options={{title: 'Playlists', headerShown: false}}
-          />
-          <Stack.Screen
-            name="Details"
-            component={PlaylistDetailsScreen}
-            options={{title: 'Playlist Details', headerTitle: ''}}
-          />
+          <Stack.Screen name="Home" component={PlaylistScreen} />
+          <Stack.Screen name="Details" component={PlaylistDetailsScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
