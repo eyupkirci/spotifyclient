@@ -23,12 +23,12 @@ function App(): React.JSX.Element {
           <Stack.Screen
             name="Home"
             component={PlaylistScreen}
-            options={{title: 'Playlists'}}
+            options={{title: 'Playlists', headerShown: false}}
           />
           <Stack.Screen
             name="Details"
             component={PlaylistDetailsScreen}
-            options={{title: 'Playlist Details'}}
+            options={{title: 'Playlist Details', headerTitle: ''}}
           />
         </Stack.Navigator>
       </NavigationContainer>

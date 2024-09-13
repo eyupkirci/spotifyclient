@@ -28,7 +28,9 @@ export default TracklistCard;
 
 const styles = StyleSheet.create({
   trackItem: {
+    width: 340,
     flexDirection: 'row',
+    overflow: 'hidden',
     alignItems: 'center',
     marginBottom: 12,
   },
