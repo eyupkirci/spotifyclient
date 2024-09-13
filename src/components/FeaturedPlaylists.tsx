@@ -80,8 +80,8 @@ const FeaturedPlaylists: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  component: {backgroundColor: 'lightblue', padding: 8},
-  playlistTitle: {fontSize: 24, marginVertical: 10, fontWeight: 'bold'},
+  component: {backgroundColor: 'lightblue'},
+  playlistTitle: {fontSize: 24, padding: 10, fontWeight: 'bold'},
   nav: {
     display: 'flex',
     flexDirection: 'row',

@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import PlaylistScreen from './pages/PlaylistScreen';
 import PlaylistDetailsScreen from './pages/PlaylistDetailsScreen';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -16,10 +17,12 @@ function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    <>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'lightblue'}}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{headerShown: false}}>
           <Stack.Screen
             name="Home"
             component={PlaylistScreen}
@@ -32,7 +35,7 @@ function App(): React.JSX.Element {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </SafeAreaView>
   );
 }
 

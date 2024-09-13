@@ -5,14 +5,16 @@ import {
   TextInput,
   View,
   Pressable,
+  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../App';
 import {IArtist, IPlaylistTrackItem} from '../types/types';
 import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
 import useFetchData from '../hooks/useFetchData';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -22,6 +24,8 @@ const PlaylistDetailsScreen = ({
   route: PlaylistDetailsScreenRouteProp;
 }) => {
   const {data: playlist} = route.params;
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const {
     data: playlistTracks,
@@ -40,9 +44,9 @@ const PlaylistDetailsScreen = ({
     if (playlistTracks) {
       const query = searchQuery.toLowerCase();
       let tracks = playlistTracks.items.filter((item: IPlaylistTrackItem) => {
-        const trackName = item.track.name.toLowerCase();
-        const artistNames = item.track.artists
-          .map((artist: IArtist) => artist.name.toLowerCase())
+        const trackName = item?.track?.name.toLowerCase();
+        const artistNames = item?.track?.artists
+          .map((artist: IArtist) => artist?.name.toLowerCase())
           .join(' ');
         return trackName.includes(query) || artistNames.includes(query);
       });
@@ -84,6 +88,16 @@ const PlaylistDetailsScreen = ({
 
   return (
     <View style={styles.screen}>
+      <Pressable
+        onPress={() => navigation.navigate('Home')}
+        style={({pressed}) => [
+          {
+            opacity: pressed ? 0.2 : 1,
+          },
+          styles.backButton,
+        ]}>
+        <Image source={require('../assets/feather_chevron-left.png')} />
+      </Pressable>
       <Image
         source={{uri: playlist.images[0].url}}
         style={styles.playlistArt}
@@ -104,6 +118,7 @@ const PlaylistDetailsScreen = ({
           <Pressable
             style={[
               styles.sortItems,
+              // eslint-disable-next-line react-native/no-inline-styles
               {opacity: sortCriterion === 'artist' ? 1 : 0.2},
             ]}
             onPress={() => setSortCriterion('name')}>
@@ -112,6 +127,7 @@ const PlaylistDetailsScreen = ({
           <Pressable
             style={[
               styles.sortItems,
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 opacity: sortCriterion === 'name' ? 1 : 0.2,
               },
@@ -124,6 +140,7 @@ const PlaylistDetailsScreen = ({
           <Pressable
             style={[
               styles.sortItems,
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 opacity: !isSortAscending ? 1 : 0.2,
               },
@@ -136,6 +153,7 @@ const PlaylistDetailsScreen = ({
           <Pressable
             style={[
               styles.sortItems,
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 opacity: isSortAscending ? 1 : 0.2,
               },
@@ -157,10 +175,13 @@ export default PlaylistDetailsScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 16,
+    paddingTop: Platform.OS === 'ios' ? 60 : 0,
+    paddingBottom: 16,
+    paddingHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backButton: {alignSelf: 'flex-start'},
   searchBar: {
     marginVertical: 5,
     height: 40,
@@ -188,6 +209,6 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 5,
   },
-  sortItemText: {textAlign: 'center'},
+  sortItemText: {textAlign: 'center', fontSize: 10},
   sortItemsGroup: {display: 'flex', flexDirection: 'row', gap: 3},
 });

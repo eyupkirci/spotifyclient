@@ -1,15 +1,13 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import FeaturedPlaylists from '../components/FeaturedPlaylists';
-import SearchBar from '../components/SearchBar';
-import ChosenPlaylists from '../components/ChosenPlaylists';
+import YourPlaylists from '../components/YourPlaylists';
 
 const PlaylistScreen: React.FC = () => {
   return (
     <View style={styles.screen}>
-      <SearchBar />
       <FeaturedPlaylists />
-      <ChosenPlaylists />
+      <YourPlaylists />
     </View>
   );
 };
@@ -20,5 +18,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: 'lightblue',
+    paddingTop: Platform.OS === 'ios' ? 60 : 0,
   },
 });
