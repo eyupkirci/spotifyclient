@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 import DynamicPlaylists from './DynamicFlatlist';
+import SearchInput from './SearchInput';
 
 const Search = () => {
   const navigation =
@@ -29,22 +30,13 @@ const Search = () => {
 
   return (
     <View>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search for artists, playlist or tracks."
-          placeholderTextColor="gray"
-          value={query}
-          onChangeText={setQuery}
-        />
-        <Pressable style={styles.searchPressable} onPress={() => setQuery('')}>
-          {query === '' ? (
-            <Image source={require('../assets/feather_search.png')} />
-          ) : (
-            <Text style={styles.searchClear}>Clear</Text>
-          )}
-        </Pressable>
-      </View>
+      <SearchInput
+        placeholder="Search for artists, playlist or tracks."
+        placeholderTextColor="gray"
+        value={query}
+        onChangeText={setQuery}
+        onClear={() => setQuery('')}
+      />
 
       {query !== '' && data !== null && (
         <Text style={styles.resultTitle}>Results</Text>

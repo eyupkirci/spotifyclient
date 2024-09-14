@@ -1,20 +1,14 @@
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, Text, View, Pressable} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {RouteProp, useNavigation} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../App';
 import {IArtist, IPlaylistTrackItem} from '../types/types';
 import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
 import useFetchData from '../hooks/useFetchData';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CardImage} from '../components/Card';
+import SearchInput from '../components/SearchInput';
+import BackButton from '../components/BackButton';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -24,8 +18,6 @@ const PlaylistDetailsScreen = ({
   route: PlaylistDetailsScreenRouteProp;
 }) => {
   const {data: playlist} = route.params;
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const {
     data: playlistTracks,
@@ -88,34 +80,19 @@ const PlaylistDetailsScreen = ({
 
   return (
     <View style={styles.screen}>
-      <Pressable
-        onPress={() => navigation.navigate('Home')}
-        style={({pressed}) => [
-          {
-            opacity: pressed ? 0.2 : 1,
-          },
-          styles.backButton,
-        ]}>
-        <Image source={require('../assets/feather_chevron-left.png')} />
-      </Pressable>
+      <BackButton />
       <CardImage item={playlist} imageStyle={styles.playlistArt} />
       <Text numberOfLines={2} style={styles.playlistTitle}>
         {playlist.name}
       </Text>
       <Text style={styles.playlistDescription}>{playlist.description}</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.searchBar}
-          placeholder="Search tracks..."
-          placeholderTextColor="lightgray"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        <Image
-          style={styles.inputIcon}
-          source={require('../assets/feather_search.png')}
-        />
-      </View>
+      <SearchInput
+        placeholder="Search tracks..."
+        placeholderTextColor="gray"
+        value={searchQuery}
+        onClear={() => setSearchQuery('')}
+        onChangeText={setSearchQuery}
+      />
       <View style={styles.sortControls}>
         <View style={styles.sortItemsGroup}>
           <Pressable

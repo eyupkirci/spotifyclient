@@ -23,7 +23,7 @@ export default PlaylistScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingBottom: 30,
+    paddingVertical: 30,
     display: 'flex',
     flexDirection: 'column',
   },
