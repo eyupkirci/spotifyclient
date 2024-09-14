@@ -60,6 +60,10 @@ Additionally, a **caching algorithm** has been implemented to optimize API calls
 - **Improve Type Safety**: Enhance type safety throughout the application to ensure robustness and prevent potential runtime errors.
 - **Add Unit Tests**: Implement unit tests for components using **React Native Testing Library** and **Jest** to ensure reliability and catch potential issues early.
 
+## Screen Recod
+
+  <img src="./src/assets/SimulatorScreenRecording.gif" alt="Demo GIF" width="250"/>
+
 ## ScreenShots
 
   <img src="./src/assets/Simulator Screenshot - iPhone 15 - 2024-09-14 at 16.00.30.png" width="250" />
