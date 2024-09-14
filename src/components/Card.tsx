@@ -9,7 +9,13 @@ import {
   ImageProps,
 } from 'react-native';
 
-const CardImage = ({item, imageStyle}: {item: any; imageStyle: ImageProps}) => {
+export const CardImage = ({
+  item,
+  imageStyle,
+}: {
+  item: any;
+  imageStyle: ImageProps;
+}) => {
   if (item?.images?.length > 0) {
     return (
       <Image

@@ -14,6 +14,7 @@ import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
 import useFetchData from '../hooks/useFetchData';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {CardImage} from '../components/Card';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -47,13 +48,13 @@ const PlaylistDetailsScreen = ({
         const artistNames = item?.track?.artists
           .map((artist: IArtist) => artist?.name.toLowerCase())
           .join(' ');
-        return trackName.includes(query) || artistNames.includes(query);
+        return trackName?.includes(query) || artistNames?.includes(query);
       });
 
       tracks = tracks.sort((a: IPlaylistTrackItem, b: IPlaylistTrackItem) => {
         if (sortCriterion === 'name') {
-          const nameA = a.track.name.toLowerCase();
-          const nameB = b.track.name.toLowerCase();
+          const nameA = a?.track?.name.toLowerCase();
+          const nameB = b?.track?.name.toLowerCase();
           if (nameA < nameB) {
             return isSortAscending ? -1 : 1;
           }
@@ -61,8 +62,8 @@ const PlaylistDetailsScreen = ({
             return isSortAscending ? 1 : -1;
           }
         } else if (sortCriterion === 'artist') {
-          const artistA = a.track.artists[0].name;
-          const artistB = b.track.artists[0].name;
+          const artistA = a?.track?.artists[0]?.name;
+          const artistB = b?.track?.artists[0]?.name;
           if (artistA < artistB) {
             return isSortAscending ? -1 : 1;
           }
@@ -97,10 +98,7 @@ const PlaylistDetailsScreen = ({
         ]}>
         <Image source={require('../assets/feather_chevron-left.png')} />
       </Pressable>
-      <Image
-        source={{uri: playlist.images[0].url}}
-        style={styles.playlistArt}
-      />
+      <CardImage item={playlist} imageStyle={styles.playlistArt} />
       <Text numberOfLines={2} style={styles.playlistTitle}>
         {playlist.name}
       </Text>

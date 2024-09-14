@@ -37,10 +37,12 @@ const Search = () => {
           value={query}
           onChangeText={setQuery}
         />
-        <Pressable
-          style={styles.searchIconPressable}
-          onPress={() => console.log('handle search')}>
-          <Image source={require('../assets/feather_search.png')} />
+        <Pressable style={styles.searchPressable} onPress={() => setQuery('')}>
+          {query === '' ? (
+            <Image source={require('../assets/feather_search.png')} />
+          ) : (
+            <Text style={styles.searchClear}>Clear</Text>
+          )}
         </Pressable>
       </View>
 
@@ -103,12 +105,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 8,
   },
-  searchIconPressable: {
+  searchPressable: {
     position: 'absolute',
-    top: 12,
+    top: 14,
     right: 10,
-    opacity: 0.6,
-    zIndex: -1,
   },
   searchControls: {
     width: '100%',
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     padding: 3,
     borderRadius: 5,
   },
+  searchClear: {color: 'navy', paddingTop: 2},
   searchItemText: {textAlign: 'center', fontSize: 10},
   resultTitle: {textAlign: 'center', fontWeight: 'bold', fontSize: 24},
   resultSectionTitle: {padding: 10, fontWeight: 'bold', fontSize: 14},
