@@ -1,24 +1,20 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
-import FeaturedPlaylists from '../components/FeaturedPlaylists';
+import {Platform, ScrollView, StyleSheet, View} from 'react-native';
+import Featured from '../components/Featured';
 import YourPlaylists from '../components/YourPlaylists';
 import Header from '../components/Header';
+import Search from '../components/Search';
 
 const PlaylistScreen: React.FC = () => {
   return (
-    <View style={styles.screen}>
-      <Header />
-      <FeaturedPlaylists />
-      <YourPlaylists />
-    </View>
+    <ScrollView>
+      <View style={styles.screen}>
+        <Header />
+        <Search />
+        <Featured />
+        <YourPlaylists />
+      </View>
+    </ScrollView>
   );
 };
 
@@ -31,6 +27,5 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-around',
   },
 });

@@ -122,51 +122,53 @@ const PlaylistDetailsScreen = ({
       <View style={styles.sortControls}>
         <View style={styles.sortItemsGroup}>
           <Pressable
-            style={[
-              styles.sortItems,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {opacity: sortCriterion === 'artist' ? 1 : 0.2},
-            ]}
+            style={[styles.sortItems]}
             onPress={() => setSortCriterion('name')}>
-            <Text style={styles.sortItemText}>Track</Text>
+            <Text
+              style={[
+                styles.sortItemText,
+                // eslint-disable-next-line react-native/no-inline-styles
+                {fontWeight: sortCriterion === 'artist' ? '300' : 'bold'},
+              ]}>
+              Track
+            </Text>
           </Pressable>
           <Pressable
-            style={[
-              styles.sortItems,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                opacity: sortCriterion === 'name' ? 1 : 0.2,
-              },
-            ]}
+            style={[styles.sortItems]}
             onPress={() => setSortCriterion('artist')}>
-            <Text style={styles.sortItemText}>Artist</Text>
+            <Text
+              style={[
+                styles.sortItemText,
+                // eslint-disable-next-line react-native/no-inline-styles
+                {fontWeight: sortCriterion === 'name' ? '300' : 'bold'},
+              ]}>
+              Artist
+            </Text>
           </Pressable>
         </View>
         <View style={styles.sortItemsGroup}>
           <Pressable
-            style={[
-              styles.sortItems,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                opacity: !isSortAscending ? 1 : 0.2,
-              },
-            ]}
+            style={[styles.sortItems]}
             onPress={() => setIsSortAscending(true)}>
-            <Text style={styles.sortItemText}>
-              {isSortAscending ? 'Sort Z-A' : 'Sort A-Z'}
+            <Text
+              style={[
+                styles.sortItemText,
+                // eslint-disable-next-line react-native/no-inline-styles
+                {fontWeight: !isSortAscending ? '300' : 'bold'},
+              ]}>
+              Sort A-Z
             </Text>
           </Pressable>
           <Pressable
-            style={[
-              styles.sortItems,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                opacity: isSortAscending ? 1 : 0.2,
-              },
-            ]}
+            style={[styles.sortItems]}
             onPress={() => setIsSortAscending(false)}>
-            <Text style={styles.sortItemText}>
-              {isSortAscending ? 'Sort Z-A' : 'Sort A-Z'}
+            <Text
+              style={[
+                styles.sortItemText,
+                // eslint-disable-next-line react-native/no-inline-styles
+                {fontWeight: isSortAscending ? '300' : 'bold'},
+              ]}>
+              Sort Z-A
             </Text>
           </Pressable>
         </View>
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: Platform.OS === 'ios' ? 60 : 0,
-    paddingBottom: 30,
+    paddingBottom: 16,
     paddingHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'center',

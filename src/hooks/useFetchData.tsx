@@ -1,15 +1,7 @@
 import {useState, useEffect, useCallback} from 'react';
 import {getToken} from './getToken';
-import {
-  IPlaylist,
-  IPlaylistsResponse,
-  IPlaylistTracksResponse,
-} from '../types/types';
 
-const cache = new Map<
-  string,
-  IPlaylistsResponse | IPlaylistTracksResponse | IPlaylist
->();
+const cache = new Map<string, any>();
 
 const defaultOptions = {
   key: '',
@@ -25,9 +17,7 @@ const useFetchData = (
   endpoint: string,
   options: IUseFetchOptions = defaultOptions,
 ) => {
-  const [data, setData] = useState<
-    IPlaylistsResponse | IPlaylistTracksResponse | null
-  >(null);
+  const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -60,8 +50,7 @@ const useFetchData = (
     try {
       const response = await fetch(endpoint, fetchOptions);
       if (response.ok) {
-        const result: IPlaylistsResponse | IPlaylistTracksResponse =
-          await response.json();
+        const result: any = await response.json();
         setData(result);
 
         if (key) {

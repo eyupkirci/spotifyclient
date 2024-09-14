@@ -8,21 +8,14 @@ import {
   ViewProps,
   ImageProps,
 } from 'react-native';
-import {IPlaylist} from '../types/types';
 
-const CardImage = ({
-  playlist,
-  imageStyle,
-}: {
-  playlist: IPlaylist;
-  imageStyle: ImageProps;
-}) => {
-  if (playlist?.images) {
+const CardImage = ({item, imageStyle}: {item: any; imageStyle: ImageProps}) => {
+  if (item?.images) {
     return (
       <Image
         style={[styles.cardImage, imageStyle]}
         source={{
-          uri: playlist?.images[0]?.url,
+          uri: item?.images[0]?.url,
         }}
       />
     );
@@ -35,32 +28,25 @@ const CardImage = ({
     );
   }
 };
-interface IPlaylistCard {
-  playlist: any;
+interface ICard {
+  item: any;
   onPress: () => void;
   style?: ViewProps;
   imageStyle?: ImageProps;
 }
 
-const PlaylistCard: React.FC<IPlaylistCard> = ({
-  playlist,
-  onPress,
-  style,
-  imageStyle,
-}) => {
+const Card: React.FC<ICard> = ({item, onPress, style, imageStyle}) => {
   return (
     <Pressable onPress={onPress} style={[styles.cardContainer, style]}>
-      <View style={styles.card}>
-        <CardImage playlist={playlist} imageStyle={imageStyle as ImageProps} />
-        <View style={styles.cardInfo}>
-          <Text style={styles.name}>{playlist?.name}</Text>
-          {playlist?.tracks?.total > 0 && (
-            <Text style={styles.total}>
-              {playlist?.tracks?.total}
-              {playlist?.tracks?.total === 1 ? ' song' : ' songs'}
-            </Text>
-          )}
-        </View>
+      <CardImage item={item} imageStyle={imageStyle as ImageProps} />
+      <View style={styles.cardInfo}>
+        <Text style={styles.name}>{item?.name}</Text>
+        {item?.tracks?.total > 0 && (
+          <Text style={styles.total}>
+            {item?.tracks?.total}
+            {item?.tracks?.total === 1 ? ' song' : ' songs'}
+          </Text>
+        )}
       </View>
     </Pressable>
   );
@@ -71,7 +57,6 @@ const styles = StyleSheet.create({
     padding: 3,
     height: 220,
   },
-  card: {},
   cardInfo: {
     display: 'flex',
     justifyContent: 'center',
@@ -90,4 +75,4 @@ const styles = StyleSheet.create({
   total: {fontSize: 10, textAlign: 'center'},
 });
 
-export default PlaylistCard;
+export default Card;

@@ -2,11 +2,11 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import useFetchData from '../hooks/useFetchData';
 import IsLoading from './IsLoading';
-import PlaylistCard from './PlaylistCard';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 import {IPlaylist} from '../types/types';
+import Card from './Card';
 
 const mockUserId = 'taylorswift'; //todo: add auth mechanism to get userId
 
@@ -29,7 +29,7 @@ const YourPlaylists = () => {
   }
 
   return (
-    <View style={styles.component}>
+    <View>
       <Text style={styles.playlistTitle}>Your Playlists</Text>
       <FlatList
         horizontal={true}
@@ -38,8 +38,8 @@ const YourPlaylists = () => {
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         renderItem={({item}: {item: IPlaylist}) => (
-          <PlaylistCard
-            playlist={item}
+          <Card
+            item={item}
             onPress={() => navigation.navigate('Details', {data: item})}
           />
         )}
@@ -49,13 +49,6 @@ const YourPlaylists = () => {
 };
 
 const styles = StyleSheet.create({
-  component: {},
-  images: {width: 120, height: 120},
-  playlistContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   playlistTitle: {fontSize: 24, padding: 10, fontWeight: 'bold'},
 });
 
