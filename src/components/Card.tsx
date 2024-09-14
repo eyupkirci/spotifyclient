@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 const CardImage = ({item, imageStyle}: {item: any; imageStyle: ImageProps}) => {
-  if (item?.images) {
+  if (item?.images?.length > 0) {
     return (
       <Image
         style={[styles.cardImage, imageStyle]}

@@ -46,6 +46,7 @@ const DynamicFlatlist: React.FC<IDynamicPlaylists> = ({
         keyExtractor={item => item.id}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={<Text>{`No ${type} found.`}</Text>}
         renderItem={({item}) => (
           <Card item={item} onPress={() => onPress(item)} />
         )}

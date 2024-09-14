@@ -37,6 +37,7 @@ const YourPlaylists = () => {
         keyExtractor={(playlist: IPlaylist) => playlist?.id}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
+        ListEmptyComponent={<Text>No playlist found.</Text>}
         renderItem={({item}: {item: IPlaylist}) => (
           <Card
             item={item}

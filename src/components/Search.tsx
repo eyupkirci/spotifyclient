@@ -44,9 +44,15 @@ const Search = () => {
         </Pressable>
       </View>
 
+      {query !== '' && data !== null && (
+        <Text style={styles.resultTitle}>Results</Text>
+      )}
+
       {query !== '' && data?.playlists?.href && (
         <View>
-          <Text style={{}}> {data?.playlists?.total} Playlists</Text>
+          <Text style={styles.resultSectionTitle}>
+            {`Playlists: ${data?.playlists?.total}`}
+          </Text>
           <DynamicPlaylists
             url={data?.playlists?.href}
             type="playlists"
@@ -56,7 +62,9 @@ const Search = () => {
       )}
       {query !== '' && data?.tracks?.href && (
         <View>
-          <Text> {data?.tracks?.total} Tracks</Text>
+          <Text style={styles.resultSectionTitle}>
+            {`Tracks: ${data?.tracks?.total}`}
+          </Text>
           <DynamicPlaylists
             url={data?.tracks?.href}
             type="tracks"
@@ -66,7 +74,9 @@ const Search = () => {
       )}
       {query !== '' && data?.artists?.href && (
         <View>
-          <Text> {data?.artists?.total} Artists</Text>
+          <Text style={styles.resultSectionTitle}>
+            {`Artists: ${data?.artists?.total}`}
+          </Text>
           <DynamicPlaylists
             url={data?.artists?.href}
             type="artists"
@@ -98,6 +108,7 @@ const styles = StyleSheet.create({
     top: 12,
     right: 10,
     opacity: 0.6,
+    zIndex: -1,
   },
   searchControls: {
     width: '100%',
@@ -114,6 +125,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   searchItemText: {textAlign: 'center', fontSize: 10},
+  resultTitle: {textAlign: 'center', fontWeight: 'bold', fontSize: 24},
+  resultSectionTitle: {padding: 10, fontWeight: 'bold', fontSize: 14},
 });
 
 export default Search;
