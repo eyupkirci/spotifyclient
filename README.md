@@ -1,4 +1,4 @@
-# Spotify Mini Client - React Native
+# Spotify Client
 
 ## Overview
 
@@ -59,11 +59,11 @@ Additionally, a **caching algorithm** has been implemented to optimize API calls
 
 - **Add Unit Tests**: Implement unit tests to ensure reliability and catch potential issues early.
 
-## Screen Record
+## Screen Recording
 
   <img src="./src/assets/SimulatorScreenRecording.gif" alt="Demo GIF" width="250"/>
 
-## ScreenShots
+## Screenshots
 
   <img src="./src/assets/Simulator Screenshot - iPhone 15 - 2024-09-14 at 16.00.30.png" width="250" />
   <img src="./src/assets/Simulator Screenshot - iPhone 15 - 2024-09-14 at 16.01.06.png"  width="250">
