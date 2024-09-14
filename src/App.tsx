@@ -14,12 +14,10 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={'dark-content'} />
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"

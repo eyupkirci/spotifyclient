@@ -24,7 +24,10 @@ const DynamicFlatlist: React.FC<IDynamicPlaylists> = ({
 }: IDynamicPlaylists) => {
   const [endpoint, setEndpoint] = useState<string>(url);
 
-  const {data, error, isLoading} = useFetchData(endpoint);
+  const {data, error, isLoading} = useFetchData(endpoint, {
+    key: endpoint,
+    refetch: false,
+  });
 
   useEffect(() => {
     setEndpoint(url);
