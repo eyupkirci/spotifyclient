@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Pressable} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../App';
@@ -9,6 +9,7 @@ import useFetchData from '../hooks/useFetchData';
 import {CardImage} from '../components/Card';
 import SearchInput from '../components/SearchInput';
 import BackButton from '../components/BackButton';
+import SortControls from '../components/SortControls'; // Import the SortControls component
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -93,60 +94,13 @@ const PlaylistDetailsScreen = ({
         onClear={() => setSearchQuery('')}
         onChangeText={setSearchQuery}
       />
-      <View style={styles.sortControls}>
-        <View style={styles.sortItemsGroup}>
-          <Pressable
-            style={[styles.sortItems]}
-            onPress={() => setSortCriterion('name')}>
-            <Text
-              style={[
-                styles.sortItemText,
-                // eslint-disable-next-line react-native/no-inline-styles
-                {fontWeight: sortCriterion === 'artist' ? '300' : 'bold'},
-              ]}>
-              Track
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.sortItems]}
-            onPress={() => setSortCriterion('artist')}>
-            <Text
-              style={[
-                styles.sortItemText,
-                // eslint-disable-next-line react-native/no-inline-styles
-                {fontWeight: sortCriterion === 'name' ? '300' : 'bold'},
-              ]}>
-              Artist
-            </Text>
-          </Pressable>
-        </View>
-        <View style={styles.sortItemsGroup}>
-          <Pressable
-            style={[styles.sortItems]}
-            onPress={() => setIsSortAscending(true)}>
-            <Text
-              style={[
-                styles.sortItemText,
-                // eslint-disable-next-line react-native/no-inline-styles
-                {fontWeight: !isSortAscending ? '300' : 'bold'},
-              ]}>
-              Sort A-Z
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[styles.sortItems]}
-            onPress={() => setIsSortAscending(false)}>
-            <Text
-              style={[
-                styles.sortItemText,
-                // eslint-disable-next-line react-native/no-inline-styles
-                {fontWeight: isSortAscending ? '300' : 'bold'},
-              ]}>
-              Sort Z-A
-            </Text>
-          </Pressable>
-        </View>
-      </View>
+      <SortControls
+        sortCriterion={sortCriterion}
+        isSortAscending={isSortAscending}
+        onSortCriterionChange={setSortCriterion}
+        onSortOrderChange={setIsSortAscending}
+      />
+
       <TrackList data={filteredTracks} />
     </View>
   );
@@ -162,42 +116,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  backButton: {marginTop: 8, alignSelf: 'flex-start'},
-  inputIcon: {
-    position: 'absolute',
-    top: 14,
-    right: 10,
-    opacity: 0.5,
-    zIndex: -1,
-  },
-  inputContainer: {position: 'relative', width: '100%'},
-  searchBar: {
-    marginVertical: 5,
-    height: 40,
-    width: '100%',
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 8,
-  },
   playlistTitle: {fontSize: 16, fontWeight: '700'},
   playlistDescription: {fontSize: 9},
   playlistArt: {borderRadius: 5, width: 200, height: 200},
-  sortControls: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 3,
-  },
-  sortItems: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 60,
-    padding: 3,
-    marginBottom: 16,
-    borderRadius: 5,
-  },
-  sortItemText: {textAlign: 'center', fontSize: 10},
-  sortItemsGroup: {display: 'flex', flexDirection: 'row', gap: 3},
 });
