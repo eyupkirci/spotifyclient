@@ -5,7 +5,6 @@ import {
   TextInput,
   View,
   Pressable,
-  Platform,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {RouteProp, useNavigation} from '@react-navigation/native';
@@ -183,13 +182,12 @@ export default PlaylistDetailsScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 60 : 0,
     paddingBottom: 16,
     paddingHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  backButton: {alignSelf: 'flex-start'},
+  backButton: {marginTop: 8, alignSelf: 'flex-start'},
   inputIcon: {
     position: 'absolute',
     top: 14,

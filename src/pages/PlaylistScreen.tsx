@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import Featured from '../components/Featured';
 import YourPlaylists from '../components/YourPlaylists';
 import Header from '../components/Header';
@@ -23,7 +23,6 @@ export default PlaylistScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingTop: Platform.OS === 'ios' ? 60 : 0,
     paddingBottom: 30,
     display: 'flex',
     flexDirection: 'column',

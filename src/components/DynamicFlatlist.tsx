@@ -100,6 +100,7 @@ const styles = StyleSheet.create({
   nav: {
     display: 'flex',
     flexDirection: 'row',
+    marginVertical: 10,
     gap: 10,
     alignItems: 'center',
     justifyContent: 'center',

@@ -16,8 +16,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App(): React.JSX.Element {
   return (
     // eslint-disable-next-line react-native/no-inline-styles
-    <SafeAreaView style={{flex: 1}}>
-      <StatusBar barStyle={'dark-content'} />
+    <SafeAreaView style={{flex: 1, marginTop: 60}}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="Home"

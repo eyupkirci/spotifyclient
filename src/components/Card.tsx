@@ -40,7 +40,9 @@ const Card: React.FC<ICard> = ({item, onPress, style, imageStyle}) => {
     <Pressable onPress={onPress} style={[styles.cardContainer, style]}>
       <CardImage item={item} imageStyle={imageStyle as ImageProps} />
       <View style={styles.cardInfo}>
-        <Text style={styles.name}>{item?.name}</Text>
+        <Text numberOfLines={1} style={styles.name}>
+          {item?.name}
+        </Text>
         {item?.tracks?.total > 0 && (
           <Text style={styles.total}>
             {item?.tracks?.total}
@@ -55,7 +57,6 @@ const Card: React.FC<ICard> = ({item, onPress, style, imageStyle}) => {
 const styles = StyleSheet.create({
   cardContainer: {
     padding: 3,
-    height: 220,
   },
   cardInfo: {
     display: 'flex',
