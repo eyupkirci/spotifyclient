@@ -1,13 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  TextInput,
-  Pressable,
-  Image,
-  StyleSheet,
-  Text,
-  Linking,
-} from 'react-native';
+import {View, StyleSheet, Text, Linking} from 'react-native';
 import useFetchData from '../hooks/useFetchData';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';

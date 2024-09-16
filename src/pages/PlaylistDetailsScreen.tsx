@@ -9,7 +9,7 @@ import useFetchData from '../hooks/useFetchData';
 import {CardImage} from '../components/Card';
 import SearchInput from '../components/SearchInput';
 import BackButton from '../components/BackButton';
-import SortControls from '../components/SortControls'; // Import the SortControls component
+import SortControls from '../components/SortControls';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 

@@ -1,34 +1,12 @@
 import {useState, useEffect, useCallback} from 'react';
 import {getToken} from './getToken';
 
-const cache = new Map<string, any>();
-
-const defaultOptions = {
-  key: '',
-  refetch: false,
-};
-
-interface IUseFetchOptions {
-  key?: string;
-  refetch?: boolean;
-}
-
-const useFetchData = (
-  endpoint: string,
-  options: IUseFetchOptions = defaultOptions,
-) => {
+const useFetchData = (endpoint: string) => {
   const [data, setData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchData = useCallback(async () => {
-    const {key, refetch} = {...defaultOptions, ...options};
-
-    if (!refetch && key && cache.has(key)) {
-      setData(cache.get(key) || null);
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
 
@@ -52,10 +30,6 @@ const useFetchData = (
       if (response.ok) {
         const result: any = await response.json();
         setData(result);
-
-        if (key) {
-          cache.set(key, result);
-        }
       } else {
         setError(
           `Failed to fetch data: ${response.status} ${response.statusText}`,
@@ -70,7 +44,7 @@ const useFetchData = (
     } finally {
       setIsLoading(false);
     }
-  }, [endpoint, options]);
+  }, [endpoint]);
 
   useEffect(() => {
     fetchData();
