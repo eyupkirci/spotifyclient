@@ -4,7 +4,7 @@ import useFetchData from '../hooks/useFetchData';
 import IsLoading from './IsLoading';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../App';
+import {RootStackParamList} from '../../App';
 import {IPlaylist} from '../types/types';
 import Card from './Card';
 

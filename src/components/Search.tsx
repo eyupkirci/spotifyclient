@@ -3,7 +3,7 @@ import {View, StyleSheet, Text, Linking} from 'react-native';
 import useFetchData from '../hooks/useFetchData';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../App';
+import {RootStackParamList} from '../../App';
 import DynamicPlaylists from './DynamicFlatlist';
 import SearchInput from './SearchInput';
 

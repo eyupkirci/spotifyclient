@@ -1,14 +1,18 @@
-import React from 'react';
+import React, {FC, useContext} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import Featured from '../components/Featured';
 import YourPlaylists from '../components/YourPlaylists';
 import Header from '../components/Header';
 import Search from '../components/Search';
+import {ColorPalette, ThemeContext} from '../context/theme';
 
-const PlaylistScreen: React.FC = () => {
+const PlaylistScreen: FC = () => {
+  const {theme} = useContext(ThemeContext);
+  const Color = ColorPalette[theme];
+
   return (
     <ScrollView>
-      <View style={styles.screen}>
+      <View style={[styles.screen, {backgroundColor: Color.backgorund}]}>
         <Header />
         <Search />
         <Featured />

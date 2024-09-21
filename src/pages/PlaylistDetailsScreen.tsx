@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '../App';
+import {RootStackParamList} from '../../App';
 import {IArtist, IPlaylistTrackItem} from '../types/types';
 import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
@@ -10,6 +10,8 @@ import {CardImage} from '../components/Card';
 import SearchInput from '../components/SearchInput';
 import BackButton from '../components/BackButton';
 import SortControls from '../components/SortControls';
+import Button from '../components/Button';
+import {ThemeContext} from '../context/theme';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
@@ -19,6 +21,7 @@ const PlaylistDetailsScreen = ({
   route: PlaylistDetailsScreenRouteProp;
 }) => {
   const {data: playlist} = route.params;
+  const {theme, toggleTheme} = useContext(ThemeContext);
 
   const {
     data: playlistTracks,
@@ -81,6 +84,11 @@ const PlaylistDetailsScreen = ({
 
   return (
     <View style={styles.screen}>
+      <Button
+        variant="contained"
+        title={theme === 'dark' ? 'Light' : 'Dark'}
+        onPress={toggleTheme}
+      />
       <BackButton />
       <CardImage item={playlist} imageStyle={styles.playlistArt} />
       <Text numberOfLines={2} style={styles.playlistTitle}>
