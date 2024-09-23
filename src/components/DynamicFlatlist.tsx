@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import useFetchData from '../hooks/useFetchData';
 import IsLoading from './IsLoading';
 import Card from './Card';
+import Button from './Button';
+import {AppContext} from '../context';
 
 /**
  * @param url string;
@@ -22,6 +24,7 @@ const DynamicFlatlist: React.FC<IDynamicPlaylists> = ({
   type,
   onPress,
 }: IDynamicPlaylists) => {
+  const {colors} = useContext(AppContext);
   const [endpoint, setEndpoint] = useState<string>(url);
 
   const {data, error, isLoading} = useFetchData(endpoint);
@@ -52,42 +55,36 @@ const DynamicFlatlist: React.FC<IDynamicPlaylists> = ({
         )}
       />
       <View style={styles.nav}>
-        <Pressable
-          style={({pressed}) => [
-            {
-              opacity: pressed ? 0.2 : 1,
-            },
-          ]}
+        <Button
+          variant="contained"
           onPress={() =>
             setEndpoint(
               data?.[type]?.previous ?? (data?.[type]?.href as string),
             )
-          }>
-          <Text
-            style={[
-              styles.navItem,
-              {opacity: data?.[type]?.previous === null ? 0.2 : 1},
-            ]}>
-            Previous
-          </Text>
-        </Pressable>
-        <Pressable
-          style={({pressed}) => [
-            {
-              opacity: pressed ? 0.2 : 1,
-            },
-          ]}
+          }
+          title="Previous"
+          textStyle={{
+            color: data?.[type]?.previous === null ? 'lightgray' : colors.text,
+          }}
+          containerStyle={{
+            borderColor:
+              data?.[type]?.previous === null ? 'lightgray' : colors.text,
+          }}
+        />
+        <Button
+          variant="contained"
           onPress={() =>
             setEndpoint(data?.[type]?.next ?? (data?.[type]?.href as string))
-          }>
-          <Text
-            style={[
-              styles.navItem,
-              {opacity: data?.[type]?.next === null ? 0.2 : 1},
-            ]}>
-            Next
-          </Text>
-        </Pressable>
+          }
+          title="Next"
+          textStyle={{
+            color: data?.[type]?.next === null ? 'lightgray' : colors.text,
+          }}
+          containerStyle={{
+            borderColor:
+              data?.[type]?.next === null ? 'lightgray' : colors.text,
+          }}
+        />
       </View>
     </View>
   );
@@ -102,7 +99,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  navItem: {color: 'navy'},
 });
 
 export default DynamicFlatlist;

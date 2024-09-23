@@ -1,27 +1,30 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '../../App';
+
 import {IArtist, IPlaylistTrackItem} from '../types/types';
 import IsLoading from '../components/IsLoading';
 import TrackList from '../components/TrackList';
 import useFetchData from '../hooks/useFetchData';
 import {CardImage} from '../components/Card';
 import SearchInput from '../components/SearchInput';
-import BackButton from '../components/BackButton';
 import SortControls from '../components/SortControls';
 import Button from '../components/Button';
-import {ThemeContext} from '../context/theme';
+import {AppContext} from '../context';
+import {RootStackParamList} from '../navigation/AppNavigation';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 type PlaylistDetailsScreenRouteProp = RouteProp<RootStackParamList, 'Details'>;
 
 const PlaylistDetailsScreen = ({
   route,
+  navigation,
 }: {
   route: PlaylistDetailsScreenRouteProp;
+  navigation?: NativeStackNavigationProp<RootStackParamList>;
 }) => {
   const {data: playlist} = route.params;
-  const {theme, toggleTheme} = useContext(ThemeContext);
+  const {theme, colors, toggleTheme} = useContext(AppContext);
 
   const {
     data: playlistTracks,
@@ -83,18 +86,31 @@ const PlaylistDetailsScreen = ({
   }
 
   return (
-    <View style={styles.screen}>
+    <View style={[styles.screen, {backgroundColor: colors.backgorund}]}>
       <Button
-        variant="contained"
-        title={theme === 'dark' ? 'Light' : 'Dark'}
+        variant="link"
+        title={theme === 'dark' ? 'Light Mode Off' : 'Light Mode On'}
         onPress={toggleTheme}
+        containerStyle={styles.ThemeButton}
       />
-      <BackButton />
+      <Button
+        variant="link"
+        onPress={() => navigation?.navigate('Home')}
+        containerStyle={styles.BackButton}>
+        <Image
+          tintColor={colors.text}
+          source={require('../assets/feather_chevron-left.png')}
+        />
+      </Button>
       <CardImage item={playlist} imageStyle={styles.playlistArt} />
-      <Text numberOfLines={2} style={styles.playlistTitle}>
+      <Text
+        numberOfLines={2}
+        style={[styles.playlistTitle, {color: colors.text}]}>
         {playlist.name}
       </Text>
-      <Text style={styles.playlistDescription}>{playlist.description}</Text>
+      <Text style={[styles.playlistDescription, {color: colors.text}]}>
+        {playlist.description}
+      </Text>
       <SearchInput
         placeholder="Search tracks..."
         placeholderTextColor="gray"
@@ -127,4 +143,9 @@ const styles = StyleSheet.create({
   playlistTitle: {fontSize: 16, fontWeight: '700'},
   playlistDescription: {fontSize: 9},
   playlistArt: {borderRadius: 5, width: 200, height: 200},
+  BackButton: {
+    padding: 10,
+    alignSelf: 'flex-start',
+  },
+  ThemeButton: {alignSelf: 'flex-end'},
 });

@@ -1,5 +1,6 @@
 import React from 'react';
-import {Pressable, Text, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {ViewStyle, TextStyle} from 'react-native';
+import Button from './Button';
 
 interface SortChipButtonProps {
   label: string;
@@ -17,42 +18,34 @@ const SortChipButton: React.FC<SortChipButtonProps> = ({
   textStyle,
 }) => {
   return (
-    <Pressable
-      style={[
-        styles.sortChip,
+    <Button
+      variant="link"
+      title={label}
+      containerStyle={[
         // eslint-disable-next-line react-native/no-inline-styles
-        {borderColor: isActive ? 'black' : 'gray'},
+        {
+          borderWidth: 1,
+          width: 60,
+          padding: 3,
+          marginBottom: 16,
+          borderRadius: 5,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderColor: isActive ? 'lightgray' : 'gray',
+        },
         style,
       ]}
-      onPress={onPress}>
-      <Text
-        style={[
-          styles.sortChipText,
-          // eslint-disable-next-line react-native/no-inline-styles
-          {fontWeight: isActive ? 'bold' : '300'},
-          textStyle,
-        ]}>
-        {label}
-      </Text>
-    </Pressable>
+      textStyle={[
+        // eslint-disable-next-line react-native/no-inline-styles
+        {
+          textAlign: 'center',
+          fontSize: 10,
+          fontWeight: isActive ? 'bold' : '300',
+        },
+        textStyle,
+      ]}
+      onPress={onPress}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  sortChip: {
-    borderColor: 'gray',
-    borderWidth: 1,
-    width: 60,
-    padding: 3,
-    marginBottom: 16,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  sortChipText: {
-    textAlign: 'center',
-    fontSize: 10,
-  },
-});
-
 export default SortChipButton;

@@ -4,15 +4,22 @@ import Featured from '../components/Featured';
 import YourPlaylists from '../components/YourPlaylists';
 import Header from '../components/Header';
 import Search from '../components/Search';
-import {ColorPalette, ThemeContext} from '../context/theme';
+import {ColorPalette, AppContext} from '../context';
+import Button from '../components/Button';
 
 const PlaylistScreen: FC = () => {
-  const {theme} = useContext(ThemeContext);
+  const {theme, toggleTheme} = useContext(AppContext);
   const Color = ColorPalette[theme];
 
   return (
     <ScrollView>
       <View style={[styles.screen, {backgroundColor: Color.backgorund}]}>
+        <Button
+          variant="link"
+          title={theme === 'dark' ? 'Light Mode Off' : 'Light Mode On'}
+          onPress={toggleTheme}
+          containerStyle={styles.themeButton}
+        />
         <Header />
         <Search />
         <Featured />
@@ -27,8 +34,9 @@ export default PlaylistScreen;
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingVertical: 30,
+    paddingBottom: 65,
     display: 'flex',
     flexDirection: 'column',
   },
+  themeButton: {alignSelf: 'flex-end'},
 });

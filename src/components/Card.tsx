@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   ViewProps,
   ImageProps,
 } from 'react-native';
+import {AppContext} from '../context';
 
 export const CardImage = ({
   item,
@@ -42,15 +43,16 @@ interface ICard {
 }
 
 const Card: React.FC<ICard> = ({item, onPress, style, imageStyle}) => {
+  const {colors} = useContext(AppContext);
   return (
     <Pressable onPress={onPress} style={[styles.cardContainer, style]}>
       <CardImage item={item} imageStyle={imageStyle as ImageProps} />
       <View style={styles.cardInfo}>
-        <Text numberOfLines={1} style={styles.name}>
+        <Text numberOfLines={1} style={[styles.name, {color: colors.text}]}>
           {item?.name}
         </Text>
         {item?.tracks?.total > 0 && (
-          <Text style={styles.total}>
+          <Text style={[styles.total, {color: colors.text}]}>
             {item?.tracks?.total}
             {item?.tracks?.total === 1 ? ' song' : ' songs'}
           </Text>

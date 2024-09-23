@@ -1,6 +1,8 @@
-import React from 'react';
-import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
+import React, {useContext} from 'react';
+import {Image, Linking, StyleSheet, Text, View} from 'react-native';
 import {IArtist, IPlaylistTrackItem, ITrack} from '../types/types';
+import {AppContext} from '../context';
+import Button from './Button';
 
 const TracklistCard: React.FC<{item: Partial<IPlaylistTrackItem>}> = ({
   item,
@@ -8,22 +10,24 @@ const TracklistCard: React.FC<{item: Partial<IPlaylistTrackItem>}> = ({
   const {name: trackName, artists, album, external_urls} = item.track as ITrack;
   const artistNames = artists.map((artist: IArtist) => artist.name).join(', ');
   const albumArt = album.images[0]?.url;
+  const {colors} = useContext(AppContext);
 
   return (
     <View style={styles.trackItem}>
       <Image style={styles.albumArt} source={{uri: albumArt}} />
       <View style={styles.trackInfo}>
-        <Text style={styles.trackName}>{trackName}</Text>
-        <Text style={styles.artistNames}>{artistNames}</Text>
-        <Pressable
-          style={({pressed}) => [
-            {
-              opacity: pressed ? 0.2 : 1,
-            },
-          ]}
-          onPress={async () => await Linking.openURL(external_urls?.spotify)}>
-          <Text style={styles.preview}>Preview</Text>
-        </Pressable>
+        <Text style={[styles.trackName, {color: colors.text}]}>
+          {trackName}
+        </Text>
+        <Text style={[styles.artistNames, {color: colors.text}]}>
+          {artistNames}
+        </Text>
+        <Button
+          textStyle={styles.preview}
+          variant="link"
+          title="Preview"
+          onPress={async () => await Linking.openURL(external_urls?.spotify)}
+        />
       </View>
     </View>
   );
@@ -55,6 +59,6 @@ const styles = StyleSheet.create({
   },
   preview: {
     marginTop: 10,
-    color: 'navy',
+    fontSize: 9,
   },
 });

@@ -1,5 +1,5 @@
 // SearchInput.tsx
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   TextInput,
@@ -8,6 +8,7 @@ import {
   Text,
   StyleSheet,
 } from 'react-native';
+import {AppContext} from '../context';
 
 interface SearchInputProps {
   placeholder: string;
@@ -24,10 +25,18 @@ const SearchInput: React.FC<SearchInputProps> = ({
   onClear,
   placeholderTextColor = 'gray',
 }) => {
+  const {colors} = useContext(AppContext);
   return (
     <View style={styles.container}>
       <TextInput
-        style={styles.input}
+        style={[
+          styles.input,
+          {
+            backgroundColor: colors.backgorund,
+            color: colors.text,
+            borderColor: colors.text,
+          },
+        ]}
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
         value={value}
@@ -37,7 +46,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
         {value === '' ? (
           <Image source={require('../assets/feather_search.png')} />
         ) : (
-          <Text style={styles.clearText}>Clear</Text>
+          <Text style={[styles.clearText, {color: colors.text}]}>Clear</Text>
         )}
       </Pressable>
     </View>
@@ -65,7 +74,6 @@ const styles = StyleSheet.create({
     right: 10,
   },
   clearText: {
-    color: 'navy',
     paddingTop: 2,
   },
 });

@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, Linking} from 'react-native';
 import useFetchData from '../hooks/useFetchData';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../App';
+
 import DynamicPlaylists from './DynamicFlatlist';
 import SearchInput from './SearchInput';
+import {AppContext} from '../context';
+import {RootStackParamList} from '../navigation/AppNavigation';
 
 const Search = () => {
+  const {colors} = useContext(AppContext);
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const [query, setQuery] = useState<string>('');
@@ -31,12 +34,12 @@ const Search = () => {
       />
 
       {query !== '' && data !== null && (
-        <Text style={styles.resultTitle}>Results</Text>
+        <Text style={[styles.resultTitle, {color: colors.text}]}>Results</Text>
       )}
 
       {query !== '' && data?.playlists?.href && (
         <View>
-          <Text style={styles.resultSectionTitle}>
+          <Text style={[styles.resultSectionTitle, {color: colors.text}]}>
             {`Playlists: ${data?.playlists?.total}`}
           </Text>
           <DynamicPlaylists
@@ -48,7 +51,7 @@ const Search = () => {
       )}
       {query !== '' && data?.tracks?.href && (
         <View>
-          <Text style={styles.resultSectionTitle}>
+          <Text style={[styles.resultSectionTitle, {color: colors.text}]}>
             {`Tracks: ${data?.tracks?.total}`}
           </Text>
           <DynamicPlaylists
@@ -60,7 +63,7 @@ const Search = () => {
       )}
       {query !== '' && data?.artists?.href && (
         <View>
-          <Text style={styles.resultSectionTitle}>
+          <Text style={[styles.resultSectionTitle, {color: colors.text}]}>
             {`Artists: ${data?.artists?.total}`}
           </Text>
           <DynamicPlaylists

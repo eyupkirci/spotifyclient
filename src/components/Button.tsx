@@ -1,31 +1,36 @@
-import {Pressable, StyleSheet, Text} from 'react-native';
+import {Pressable, StyleSheet, Text, TextStyle, ViewStyle} from 'react-native';
 import React, {ReactNode, useContext} from 'react';
-import {ThemeContext} from '../context/theme';
+import {AppContext} from '../context';
 
 const Button = ({
   title,
   children,
   variant,
   onPress,
+  textStyle,
+  containerStyle,
 }: {
   title?: string;
   children?: ReactNode;
   variant: 'link' | 'contained';
   onPress: () => void;
+  textStyle?: TextStyle | (TextStyle | undefined)[];
+  containerStyle?: ViewStyle | (ViewStyle | undefined)[];
 }) => {
-  const {colors} = useContext(ThemeContext);
+  const {colors} = useContext(AppContext);
 
   const style = styles[variant];
   return (
     <Pressable
-      style={pressed => [
+      style={({pressed}) => [
         styles.base,
-        {backgroundColor: colors.backgorund},
         style,
-        {opacity: pressed ? 1 : 0.2},
+        containerStyle,
+        {backgroundColor: colors.backgorund},
+        {opacity: pressed ? 0.2 : 1},
       ]}
       onPress={onPress}>
-      {title && <Text style={{color: colors.text}}> {title}</Text>}
+      {title && <Text style={[{color: colors.text}, textStyle]}> {title}</Text>}
       {children && children}
     </Pressable>
   );
@@ -38,6 +43,7 @@ const styles = StyleSheet.create({
     margin: 1,
     padding: 3,
     borderRadius: 5,
+    alignSelf: 'flex-start',
   },
   link: {
     borderWidth: 0,

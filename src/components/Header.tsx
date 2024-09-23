@@ -1,27 +1,30 @@
-import React from 'react';
-import {View, Text, Pressable, Image, Alert, StyleSheet} from 'react-native';
+import React, {useContext} from 'react';
+import {View, Text, Image, Alert, StyleSheet} from 'react-native';
+import {AppContext} from '../context';
+import Button from './Button';
 
 const Header = () => {
+  const {colors, user} = useContext(AppContext);
   return (
-    <View style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.headerText}>Listen your favourite music</Text>
+    <View>
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text style={[styles.headerText, {color: colors.text}]}>
+            Listen your favourite music
+          </Text>
+        </View>
+        <Button
+          variant="link"
+          containerStyle={styles.imagePressable}
+          onPress={() => {
+            Alert.alert(`Welcome ${user.user.username}`);
+          }}>
+          <Image
+            style={styles.userImage}
+            source={require('../assets/feather_user.png')}
+          />
+        </Button>
       </View>
-      <Pressable
-        onPress={() => {
-          Alert.alert('Welcome User');
-        }}
-        style={({pressed}) => [
-          {
-            opacity: pressed ? 0.2 : 1,
-          },
-          styles.imagePressable,
-        ]}>
-        <Image
-          style={styles.userImage}
-          source={require('../assets/feather_user.png')}
-        />
-      </Pressable>
     </View>
   );
 };
@@ -48,6 +51,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     right: 5,
+    borderRadius: 50,
+    backgroundColor: 'white',
+  },
+  ThemeButton: {
+    alignSelf: 'flex-end',
   },
 });
 
