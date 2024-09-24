@@ -25,23 +25,23 @@ export const ColorPalette = {
 };
 
 interface User {
-  user: {
+  user?: {
     username: string;
     userId: string;
     playlist?: any;
   };
-  token: string | null;
+  token?: string | null;
 }
 
 type Theme = 'light' | 'dark';
 type AppContext = {
-  theme: Theme;
-  colors: any;
-  toggleTheme: () => void;
-  user: User;
-  setUser: Dispatch<SetStateAction<User>>;
-  appData: any[];
-  setAppData: Dispatch<SetStateAction<any[]>>;
+  theme?: Theme;
+  colors?: any;
+  toggleTheme?: () => void;
+  user?: User;
+  setUser?: Dispatch<SetStateAction<User>>;
+  appData?: any[];
+  setAppData?: Dispatch<SetStateAction<any[]>>;
 };
 interface ThemeProviderProps {
   children: ReactNode;

@@ -1,17 +1,16 @@
-/**
- * @format
- */
-
-import 'react-native';
 import React from 'react';
+import {render, waitFor} from '@testing-library/react-native';
 import App from '../App';
 
-// Note: import explicitly to use the types shipped with jest.
-import {it} from '@jest/globals';
+describe('App renders', () => {
+  test('Header renders correctly', async () => {
+    const {getByText} = render(<App />);
 
-// Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
+    await waitFor(() => getByText('Listen your favourite music'));
+  });
+  test('Your Playlist renders correctly', async () => {
+    const {getByText} = render(<App />);
 
-it('renders correctly', () => {
-  renderer.create(<App />);
+    await waitFor(() => getByText('Your Playlists'));
+  });
 });
