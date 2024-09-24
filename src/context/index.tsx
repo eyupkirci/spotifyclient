@@ -27,6 +27,8 @@ export const ColorPalette = {
 interface User {
   user: {
     username: string;
+    userId: string;
+    playlist?: any;
   };
   token: string | null;
 }
@@ -38,8 +40,8 @@ type AppContext = {
   toggleTheme: () => void;
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
-  data: any[];
-  setData: Dispatch<SetStateAction<any[]>>;
+  appData: any[];
+  setAppData: Dispatch<SetStateAction<any[]>>;
 };
 interface ThemeProviderProps {
   children: ReactNode;
@@ -52,11 +54,11 @@ export const AppProvider: FC<ThemeProviderProps> = ({children}: any) => {
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
-
-  const [data, setData] = useState<any[]>([]);
+  const [appData, setAppData] = useState<any[]>([]);
   const [user, setUser] = useState<User>({
     user: {
       username: 'Taylor Swift',
+      userId: 'taylorswift',
     },
     token: 'abc',
   });
@@ -65,7 +67,7 @@ export const AppProvider: FC<ThemeProviderProps> = ({children}: any) => {
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <AppContext.Provider
-      value={{theme, colors, toggleTheme, user, setUser, data, setData}}>
+      value={{theme, colors, toggleTheme, user, setUser, appData, setAppData}}>
       {children}
     </AppContext.Provider>
   );

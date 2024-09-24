@@ -1,39 +1,26 @@
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import useFetchData from '../hooks/useFetchData';
-import IsLoading from './IsLoading';
+import React, {useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../App';
-import {IPlaylist} from '../types/types';
 import Card from './Card';
 
-const mockUserId = 'taylorswift'; //todo: add auth mechanism to get userId
+import {IPlaylist} from '../types/types';
+import {RootStackParamList} from '../navigation/AppNavigation';
+import {AppContext} from '../context';
 
 const YourPlaylists = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-
-  const {
-    data: yourPlaylist,
-    isLoading: yourIsLoading,
-    error: yourError,
-  } = useFetchData(`https://api.spotify.com/v1/users/${mockUserId}/playlists`);
-
-  if (yourIsLoading) {
-    return <IsLoading />;
-  }
-
-  if (yourError) {
-    return <Text>Error: {yourError}</Text>;
-  }
+  const {user, colors} = useContext(AppContext);
 
   return (
     <View>
-      <Text style={styles.playlistTitle}>Your Playlists</Text>
+      <Text style={[styles.playlistTitle, {color: colors.text}]}>
+        Your Playlists
+      </Text>
       <FlatList
         horizontal={true}
-        data={yourPlaylist?.items}
+        data={user.user.playlist?.items}
         keyExtractor={(playlist: IPlaylist) => playlist?.id}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
