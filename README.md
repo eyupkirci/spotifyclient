@@ -51,13 +51,16 @@ Additionally, a **caching algorithm** has been implemented to optimize API calls
 
 - **Component-Based Structure**: The project follows a component-based architecture to ensure clean and maintainable code. Each feature or UI element is encapsulated in its own component, promoting reusability and separation of concerns.
 
-### 7. Caching Algorithm (Bonus)
+### 7. Unit Testing
 
-- A caching mechanism has been implemented to minimize unnecessary API requests and optimize data retrieval.
+- Unit tests are implemented using Jest and @testing-library/react-native to ensure component reliability and functionality. Tests cover various aspects including:
+-- Component rendering and UI elements.
+-- Context-based state changes.
+-- API data flow and response handling.
+-- Navigation and interaction with user inputs.
 
-## TODOs
-
-- **Add Unit Tests**: Implement unit tests to ensure reliability and catch potential issues early.
+### 8. State Management & Data Flow
+- The application uses the React Context API for global state management, allowing efficient data sharing and updates across components without prop drilling. State updates trigger re-rendering only where necessary, optimizing performance and maintaining a responsive UI.
 
 ## Screen Recording
 
